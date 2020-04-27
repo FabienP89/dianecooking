@@ -1,0 +1,322 @@
+{% load instagram_client %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>Diane Cooking</title>
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'blog/img/core-img/icone.jpg' %}">
+
+    <!-- Core Stylesheet -->
+    <link href="{% static 'blog/css/style.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- Responsive CSS -->
+    <link href="{% static 'blog/css/responsive/responsive.css' %}" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+    <!-- Preloader Start -->
+    <div id="preloader">
+        <div class="yummy-load"></div>
+    </div>
+
+
+     <!-- Background Pattern Swither -->
+ 
+
+    <!-- ****** Top Header Area Start ****** -->
+    <div class="top_header_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-5 col-sm-9">
+                    <!--  Top Social bar start -->
+                    <div class="top_social_bar">
+                        <a target="_blank" href="https://www.youtube.com/channel/UC8SUKgn0CUoTCgitzMQlUIw"><i
+                                class="fa fa-youtube-play" aria-hidden="true"></i><span> YouTube</span></a>
+                                <a target="_blank" href="https://www.instagram.com/dianecooking/?hl=fr"><i class="fa fa-instagram" aria-hidden="true"></i><span> Instagram</span></a>
+                    </div>
+
+                </div>
+                <!--  Login Register Area -->
+                <div class="col-7 col-sm-3">
+                    <div class="signup-search-area d-flex align-items-center justify-content-end">
+                        <!-- Search Button Area -->
+                        <!-- Search Form -->
+                        <div class="search-hidden-form">
+                            <form action="{% url 'search' %}" method="get">
+                                <input type="search" name="search" id="search-anything" placeholder="Rechercher...">
+                                <input value="{{ search_term }}" type="submit" class="d-none fa fa-search text-dark">
+                                <span><i class="fa fa-search text-dark" aria-hidden="true"></i></span>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- ****** Header Area Start ****** -->
+        <header class="header_area">
+            <div class="container">
+                <div class="row">
+                    <!-- Logo Area Start -->
+                    <div class="col-12">
+                        <div class="logo_area text-center">
+                            <a href="{% url 'home' %}" class="yummy-logo">Diane Cooking</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row text-center">
+                    <div class="col-12">
+                        <nav class="navbar navbar-expand-lg">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#yummyfood-nav" aria-controls="yummyfood-nav" aria-expanded="false"
+                                aria-label="Toggle navigation"><i class="fa fa-bars" aria-hidden="true"></i>
+                                Menu</button>
+                            <!-- Menu Area Start -->
+                            <div class="collapse navbar-collapse justify-content-center" id="yummyfood-nav">
+                                <ul class="navbar-nav" id="yummy-nav">
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="{% url 'home' %}">Accueil<span
+                                                class="sr-only">(current)</span></a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Recettes
+                                            salées</a>
+                                        <div class="dropdown-menu" aria-labelledby="yummyDropdown">
+                                            <a class="dropdown-item" href="{% url 'recettes-salees' %}">Toutes mes
+                                                recettes
+                                                salées</a>
+                                            <a class="dropdown-item" href="{% url 'aperitifs' %}">Apéritifs</a>
+                                            <a class="dropdown-item" href="{% url 'entrees' %}">Entrées</a>
+                                            <a class="dropdown-item" href="{% url 'viandes' %}">Viandes</a>
+                                            <a class="dropdown-item"
+                                                href="{% url 'tartes_quiches' %}">Tartes/Quiches</a>
+                                            <a class="dropdown-item" href="{% url 'poissons' %}">Poissons</a>
+                                            <a class="dropdown-item"
+                                                href="{% url 'accompagnements' %}">Accompagnements</a>
+
+
+
+                                            <a class="dropdown-item" href="{% url 'boulange' %}">Boulange</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Recettes
+                                            sucrées</a>
+                                        <div class="dropdown-menu" aria-labelledby="yummyDropdown">
+                                            <a class="dropdown-item" href="{% url 'recettes-sucrees' %}">Toutes mes
+                                                recettes
+                                                sucrées</a>
+                                            <a class="dropdown-item" href="{% url 'gateaux' %}">Gâteaux</a>
+                                            <a class="dropdown-item" href="{% url 'goutes' %}">Goûtés</a>
+                                            <a class="dropdown-item" href="{% url 'viennoiseries' %}">Viennoiseries</a>
+                                            <a class="dropdown-item" href="{% url 'tartes' %}">Tartes</a>
+                                            <a class="dropdown-item" href="{% url 'desserts_individuels' %}">Desserts
+                                                individuels</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Recettes
+                                            par thème</a>
+                                        <div class="dropdown-menu" aria-labelledby="yummyDropdown">
+                                            <a class="dropdown-item" href="{% url 'recettes-par-theme' %}">Toutes mes
+                                                recettes par thème</a>
+                                            <a class="dropdown-item" href="{% url 'paques' %}">Pâques</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Lifestyle</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">À propos</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ****** Header Area End ****** -->
+
+        {% block content %}
+
+        {% endblock content %}
+
+
+
+
+        <!-- ****** Instagram Area Start ****** -->
+        <div class="instargram_area owl-carousel section_padding_100_0 clearfix" id="portfolio">
+            <!-- Instagram Item -->
+            {% instagram_user_recent_media dianecooking %}
+            {% for media in recent_media %}
+            <div class="instagram_gallery_item">
+                <!-- Instagram Thumb -->
+                <a href="//instagram.com/p/{{ media.shortcode }}" target="_blank"></a>
+                <img src="{{ media.thumbnail_src }}" alt="">
+                
+                <!-- Hover -->
+                <div class="hover_overlay">
+                    <div class="yummy-table">
+                        <div class="yummy-table-cell">
+                            <div class="follow-me text-center">
+                                <a href="https://www.instagram.com/dianecooking/?hl=fr"><i class="fa fa-instagram" aria-hidden="true"></i> Follow me</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            {% endfor %}
+        </div>
+        <!-- ****** Our Creative Portfolio Area End ****** -->
+
+        <!-- ****** Footer Social Icon Area Start ****** -->
+        <div class="social_icon_area clearfix">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-6">
+                        <div class="footer-social-area d-flex">
+                            <div class="single-icon">
+                                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i><span>facebook</span></a>
+                            </div>
+                            <div class="single-icon">
+                                <a target="_blank" href="https://www.instagram.com/dianecooking/?hl=fr"><i class="fa fa-instagram" aria-hidden="true"></i><span>Instagram</span></a>
+                            </div>
+                            <div class="single-icon">
+                                <a target="_blank" href="https://www.youtube.com/channel/UC8SUKgn0CUoTCgitzMQlUIw"><i
+                                        class="fa fa-youtube-play" aria-hidden="true"></i><span>YOUTUBE</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ****** Footer Social Icon Area End ****** -->
+
+        <!-- ****** Footer Menu Area Start ****** -->
+        <footer class="footer_area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="footer-content">
+                            <!-- Logo Area Start -->
+                            <div class="footer-logo-area text-center">
+                                <a href="{% url 'home' %}" class="yummy-logo">Diane Cooking</a>
+                            </div>
+                            <!-- Menu Area Start -->
+                            <nav class="navbar navbar-expand-lg">
+                                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                    data-target="#yummyfood-footer-nav" aria-controls="yummyfood-footer-nav"
+                                    aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"
+                                        aria-hidden="true"></i> Menu</button>
+                                <!-- Menu Area Start -->
+                                <div class="collapse navbar-collapse justify-content-center text-center" id="yummyfood-footer-nav">
+                                    <ul class="navbar-nav">
+                                        <li class="nav-item active">
+                                            <a class="nav-link" href="{% url 'home' %}">Accueil<span
+                                                    class="sr-only">(current)</span></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{% url 'recettes-salees' %}">Recettes salées</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{% url 'recettes-sucrees' %}">Recettes sucrées</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{% url 'recettes-par-theme' %}">Recettes par thème</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">À propos</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Copywrite Text -->
+                        <div class="copy_right_text text-center">
+                            <p>Copyright 2020 Diane Cooking All rights reserved</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- ****** Footer Menu Area End ****** -->
+        <!-- Jquery-2.2.4 js -->
+        <script src="{% static 'blog/js/jquery/jquery-2.2.4.min.js' %}"></script>
+        <!-- Popper js -->
+        <script src="{% static 'blog/js/bootstrap/popper.min.js' %}"></script>
+        <!-- Bootstrap-4 js -->
+        <script src="{% static 'blog/js/bootstrap/bootstrap.min.js' %}"></script>
+        <!-- All Plugins JS -->
+        <script src="{% static 'blog/js/others/plugins.js' %}"></script>
+        <!-- Active JS -->
+        <script src="{% static 'blog/js/active.js' %}"></script>
+
+        <script>
+            function reply_click(clicked_id) {
+                $('.reply-form').show();
+            }
+
+    $('.likes').click(function(){
+    var p_id = $(this).attr("data-post-id");
+    $.get('/like_post/', {post_id: p_id}, function(data){
+            $('.like_count').html(data);
+        });
+});
+
+
+
+
+            $('.likes-comments').click(function () {
+                var c_id;
+                c_id = $(this).attr("data-comment-id");
+
+                $.ajax({
+                    url: '/likes_comments/',
+                    method: 'GET',
+                    data: {
+                        'comment_id': c_id,
+                    },
+                    success: function (data) {
+                        $(this).closest('.like_comment_count').html(data);
+                    }
+
+                });
+            });
+        </script>
+
+
+
+
+</body>

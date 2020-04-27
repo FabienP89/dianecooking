@@ -1,0 +1,354 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% load imagekit %}
+
+{% block content %}
+
+
+<!-- ****** Breadcumb Area Start ****** -->
+<div class="breadcumb-area" style="background-image: url('/static/blog/img/bg-img/banniere_diane_cooking.jpg');">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="bradcumb-title text-center">
+                    <h2>{{ post.title }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="breadcumb-nav">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+                        </li>
+                        {% for category in post.category.all %}
+                        <li class="breadcrumb-item active" aria-current="page">{{ category }}</li>
+                        {% endfor %}
+                        <li class="breadcrumb-item active" aria-current="page">{{ post.title }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ****** Breadcumb Area End ****** -->
+
+<!-- ****** Single Blog Area Start ****** -->
+<section class="single_blog_area section_padding_80">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="row no-gutters">
+
+                    <!-- Single Post Share Info -->
+                    <div class="col-2 col-sm-1">
+                        <div class="single-post-share-info mt-100">
+                            <a href="#" class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a href="#" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="#" class="instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                            <a href="#" class="pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Single Post -->
+                    <div class="col-10 col-sm-11">
+                        <div class="single-post">
+                            <!-- Post Thumb -->
+                            <div class="post-thumb">
+                                <img src="{{ post.image_thumbnail1.url }}" alt="">
+                            </div>
+                            <!-- Post Content -->
+                            <div class="post-content">
+                                <div class="post-meta d-flex">
+                                    <div class="post-author-date-area d-flex">
+                                        <!-- Post Date -->
+                                        <div class="post-date">
+                                            <a href="#">{{ post.created_at|date:"d F Y" }}</a>
+                                        </div>
+                                    </div>
+                                    <!-- Post Comment & Share Area -->
+
+                                    <div class="post-comment-share-area d-flex">
+                                        <!-- Post Favourite -->
+                                        <div class="post-favourite">
+
+                                            <a href="#" data-post-id="{{ post.id }}" class="likes text-danger">J'aime <i class="like_count fa fa-heart-o"
+                                                    aria-hidden="true"> {{ post.likes }}</i></a>
+                                        </div>
+
+                                        <!-- Post Comments -->
+                                        <div class="post-comments">
+                                            <a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i>
+                                                {{ post.comments.count }}</a>
+                                        </div>
+                                        <!-- Post Share -->
+                                        <div class="post-share">
+                                            <a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#">
+                                    <h2 class="post-headline">{{ post.title }}</h2>
+                                </a>
+                                <p>{{ post.introduction }}</p>
+                                {% if post.citation|length > 0 %}
+                                <blockquote class="yummy-blockquote mt-30 mb-30">
+                                    <h5 class="mb-30">“{{ post.citation }}”</h5>
+                                    <h6 class="text-muted">Diane</h6>
+                                </blockquote>
+                                {% endif %}
+
+                                {% if post.ingredients.all|length > 0 %}
+                                <h4>Liste des ingrédients</h4>
+                               {% for ingredient in post.ingredients.all %}
+                                <ul class="mb-20">
+                                    <li>{{ ingredient|capfirst }}</li>
+                                </ul>
+                                {% endfor %}
+                                {% endif %}
+
+                                {% if post.video|length > 0 %}
+                                <div class="embed-responsive embed-responsive-16by9 w-70 mx-auto">
+                                    <iframe width="560" height="315" src="{{ post.video }}" frameborder="0"
+                                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                                {% endif %}
+                                <h4>{{ post.title_chapter1|default:"" }}</h4>
+                                <p>{{ post.ch1_block1 }}</p>
+
+                                <img class="br-30 mb-30" src="{{ post.image_thumbnail2.url }}" alt="">
+                                <p>{{ post.ch1_block2 }}</p>
+
+                                <img class="br-30 mb-30" src="{{ post.image_thumbnail3.url }}" alt="">
+                                <p>{{ post.ch1_block3 }}</p>
+
+                                <img class="br-30 mb-30" src="{{ post.image_thumbnail4.url }}" alt="">
+                                <h4>{{ post.title_chapter2|default:"" }}</h4>
+                                <p>{{ post.ch2_block1 }}</p>
+
+
+                                <img class="br-30 mb-15" src="{{ post.image_thumbnail5.url }}" alt="">
+                            </div>
+                        </div>
+                        <!-- Tags Area -->
+                        <div class="tags-area">
+                            <a href="#">Multipurpose</a>
+                            <a href="#">Design</a>
+                            <a href="#">Ideas</a>
+                        </div>
+
+                        <!-- Related Post Area -->
+                        <div class="related-post-area section_padding_50">
+                            <h4 class="mb-30">Découvrez vite mes autres recettes !</h4>
+                            <div class="related-post-slider owl-carousel">
+                                {% for post in posts_same_category %}
+                                <!-- Single Related Post-->
+                                <div class="single-post">
+                                    <div class="single-post item{% if forloop.first %} active{% endif %}"></div>
+                                    <!-- Post Thumb -->
+                                    <div class="post-thumb">
+                                        <a href="{% url 'recette' post.slug %}">
+                                            <img src="{{ post.cover_image_thumbnail.url }}" alt="">
+                                        </a>
+                                    </div>
+                                    <!-- Post Content -->
+                                    <div class="post-content">
+                                        <div class="post-meta d-flex">
+                                            <div class="post-author-date-area d-flex">
+                                                <!-- Post Date -->
+                                                <div class="post-date">
+                                                    <a href="{% url 'recette' post.slug %}">{{ post.created_at|date:"d F Y" }}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="{% url 'recette' post.slug %}">
+                                            <h6>{{ post.title }}</h6>
+                                        </a>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- design ok -->
+                        <!-- Comment Area Start -->
+                        <div class="comment_area section_padding_50 clearfix" id="comments">
+                            {% if post.comments.count == 0 %}
+                            <h4 class="mb-30">Soyez le premier à commenter cette recette !</h4>
+                            {% else %}
+                            <h4 class="mb-30">{{ post.comments.count }} commentaires</h4>
+                            {% endif %}
+                            <!-- confirmation message -->
+                            {% if "Votre commentaire" in message %}
+                            <div class="alert alert-success alert-dismissable fade show">
+                                {{ message }}
+                                <button type='button' class='close' data-dismiss='alert'>
+                                    <span>&times;</span>
+                                </button>
+                            </div>
+                            {% endif %}
+                            <div class="comment-form">
+                                <h4 class="mb-30">Écrire un commentaire</h4>
+
+                                <!-- Comment Form -->
+                                <form action="." method="post">
+                                    <div class="form-group">
+                                        {% csrf_token %}
+                                        {% bootstrap_form comment_form %}
+                                    </div>
+                                    {% buttons %}
+                                    <button type="submit" class="btn contact-btn mb-50">Ajouter un commentaire</button>
+                                    {% endbuttons %}
+                                </form>
+                            </div>
+                            <ol>
+                                <!-- Single Comment Area -->
+                                <li class="single_comment_area">
+                                    {% for comment in comments %}
+                                    <div class="comment-wrapper d-flex">
+                                        <!-- Comment Meta -->
+                                        <div class="comment-author">
+                                        </div>
+                                        <!-- Comment Content -->
+                                        <div class="comment-content">
+                                            <span class="comment-date text-muted">{{ comment.created_at }}</span>
+                                            <h5>{{ comment.author_name }}</h5>
+                                            {% if comment.status == 'moderated' %}
+                                            <span class="font-weight-light font-italic text_muted">
+                                                [[ Commentaire modéré : {{ comment.moderation_text }}]]
+                                            </span>
+                                            {% else %}
+                                            <p>{{ comment.text }}</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                    <ol class="children">
+                                        <li class="single_comment_area">
+                                            {% for reply in comment.replies.all %}
+                                            <div class="comment-wrapper d-flex">
+                                                <!-- Comment Meta -->
+                                                <div class="comment-author">
+                                                </div>
+                                                <!-- Comment Content -->
+                                                <div class="comment-content">
+                                                    <span class="comment-date text-muted">{{ reply.created_at }}</span>
+                                                    <h5> réponse de : {{ reply.author_name }}</h5>
+                                                    <p>{{ reply.text }}</p>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                            <div class="comment-wrapper d-flex">
+                                                <div class="comment-content">
+                                            <a class="active" name='parent_id' value='{{ comment.id }}' onClick="reply_click(this.parent_id)" href="#">Répondre</a>
+                                            <a href="#" data-comment-id="{{ comment.id }}"
+                                            class="likes-comments active text-light">J'aime <i 
+                                            class="like_comment_count fa fa-heart-o" aria-hidden="true"> {{ comment.likes }}</i></a>
+                                        </div>
+                                        </div>
+                                            <div class="form-group reply-form" style='display:none'>
+                                                <a>Réponde à ce commentaire</a>
+                                                <form action="" method="post">
+                                                    {% csrf_token %}
+                                                    {% bootstrap_form comment_form %}
+                                                    <input type="hidden" name='parent_id' value='{{ comment.id }}'>
+                                                    {% buttons %}
+                                                    <button type="submit" class="btn contact-btn"
+                                                        href="#">Répondre</button>
+                                                    {% endbuttons %}
+                                                </form>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                    {% endfor %}
+                                </li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- design ok -->
+
+            <!-- ****** Blog Sidebar ****** -->
+            <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+                <div class="blog-sidebar mt-5 mt-lg-0">
+                    <!-- Single Widget Area -->
+                    <div class="single-widget-area subscribe_widget text-center">
+                        <div class="widget-title">
+                            <h6>Suivez-moi sur les réseaux sociaux !</h6>
+                        </div>
+                        <div class="subscribe-link">
+                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-google" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-vimeo" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Single Widget Area -->
+                    <div class="single-widget-area popular-post-widget">
+                        <div class="widget-title text-center">
+                            <h6>Les recettes que vous adorez !</h6>
+                        </div>
+                        <!-- Single Popular Post -->
+                        {% for post in preferred_posts %}
+                        <div class="single-populer-post d-flex">
+
+                            <img src="{{ post.cover_image_thumbnail.url }}" alt="">
+                            <div class="post-content">
+                                <a href="#">
+                                    <h6>{{ post.title }}</h6>
+                                </a>
+                                <p>{{ post.created_at|date:"d F Y" }}</p>
+                            </div>
+
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Single Widget Area -->
+                    <div class="single-widget-area newsletter-widget">
+                        <div class="widget-title text-center">
+                            <h6>Newsletter</h6>
+                        </div>
+                        <p id="news"></p>
+                        <div class="newsletter-form">
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                {% bootstrap_form newsletter_form %}
+                                {% buttons %}
+                                <button type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                                {% endbuttons %}
+                            </form>
+                        </div>
+                        <!-- confirmation newsletter -->
+                        {% if "Votre inscription" in message %}
+                        <div class="alert alert-success alert-dismissable fade show">
+                            <button type='button' class='close' data-dismiss='alert'>
+                                <span>&times;</span>
+                            </button>
+                            {{ message }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+<!-- ****** Single Blog Area End ****** -->
+
+
+
+{% endblock content %}

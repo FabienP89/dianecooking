@@ -1,0 +1,298 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+<!-- ****** Welcome Post Area Start ****** -->
+<section class="welcome-post-sliders owl-carousel">
+    <!-- Single Slide -->
+    {% for slider in sliders %}
+    <div class="welcome-single-slide">
+        <!-- Post Thumb -->
+        <a href="{% url 'recette' slider.slug %}">
+        <img src="{{ slider.image_thumbnail_slider.url }}" alt="">
+    </a>
+        <!-- Overlay Text -->
+        <div class="project_title">
+            <div class="post-date-commnents d-flex">
+                <a href="{% url 'recette' slider.slug %}">{{ slider.created_at|date:"d F Y" }}</a>
+                <a href="#" data-posts-id="{{ post.id }}" class="like"><i class="fa fa-heart-o likes_count"
+                    aria-hidden="true"></i> {{ slider.likes }}</a>
+            </div>
+            <a href="{% url 'recette' slider.slug %}">
+                <h5>{{ slider.title }}</h5>
+            </a>
+        </div>
+    </div>
+{% endfor %}
+</section>
+<!-- ****** Welcome Area End ****** -->
+
+<!-- ****** Categories Area Start ****** -->
+<section class="categories_area clearfix" id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="single_catagory">
+                    <img src="{% static 'blog/img/catagory-img/1.jpg' %}" alt="">
+                    <div class="catagory-title">
+                        <a href="{% url 'recettes-salees' %}">
+                            <h5>Recettes salées</h5>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="single_catagory">
+                    <img src="{% static 'blog/img/catagory-img/2.jpg' %}" alt="">
+                    <div class="catagory-title">
+                        <a href="{% url 'recettes-sucrees' %}">
+                            <h5>Recettes sucrées</h5>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="single_catagory">
+                    <img src="{% static 'blog/img/catagory-img/3.jpg' %}" alt="">
+                    <div class="catagory-title">
+                        <a href="{% url 'recettes-par-theme' %}">
+                            <h5>Recettes par thème</h5>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ****** Categories Area End ****** -->
+
+<!-- ****** Blog Area Start ****** -->
+<section class="blog_area section_padding_0_80">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="row">
+
+                    <!-- Single Post -->
+                    <div class="col-12">
+                        <div class="single-post">
+                            <!-- Post Thumb -->
+                            <div class="post-thumb">
+                                <a href="{% url 'recette' unique_recent_post.slug %}">
+                                <img src="{{ unique_recent_post.cover_image_thumbnail.url }}" alt="">
+                            </a>
+                            </div>
+                            <!-- Post Content -->
+                            <div class="post-content">
+                                <div class="post-meta d-flex">
+                                    <div class="post-author-date-area d-flex">
+                                        <!-- Post Date -->
+                                        <div class="post-date">
+                                            <a href="{% url 'recette' unique_recent_post.slug %}">{{ unique_recent_post.created_at|date:"d F Y" }}</a>
+                                        </div>
+                                    </div>
+                                    <!-- Post Comment & Share Area -->
+                                    <div class="post-comment-share-area d-flex">
+                                        <!-- Post Favourite -->
+                                        <div class="post-favourite">
+                                            <a href="#" data-post-id="{{ post.id }}" class="likes text-danger">J'aime <i class=" like_count fa fa-heart-o"
+                                                aria-hidden="true"> {{ unique_recent_post.likes }}</i></a>
+                                        </div>
+                                        <!-- Post Comments -->
+                                        <div class="post-comments">
+                                            <a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> {{ unique_recent_post.comments.count }}</a>
+                                        </div>
+                                        <!-- Post Share -->
+                                        <div class="post-share">
+                                            <a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <a href="{% url 'recette' unique_recent_post.slug %}">
+                                    <h2 class="post-headline">{{ unique_recent_post.title }}</h2>
+                                </a>
+                                <p>{{ unique_recent_post.citation }}</p>
+                                <a href="{% url 'recette' unique_recent_post.slug %}" class="read-more">Lire la recette...</a>
+
+                            </div>
+                        </div>
+                    </div>
+                    {% for recent in recent_posts_block1 %}
+                    <!-- Single Post -->
+                    <div class="col-12 col-md-6">
+                        <div class="single-post">
+                            <!-- Post Thumb -->
+                            <div class="post-thumb">
+                                <a href="{% url 'recette' recent.slug %}">
+                                <img src="{{ recent.cover_image_thumbnail.url }}" alt="">
+                            </a>
+                            </div>
+                            <!-- Post Content -->
+                            <div class="post-content">
+                                <div class="post-meta d-flex">
+                                    <div class="post-author-date-area d-flex">
+                                        <!-- Post Date -->
+                                        <div class="post-date">
+                                            <a href="{% url 'recette' recent.slug %}">{{ recent.created_at|date:"d F Y" }}</a>
+                                        </div>
+                                    </div>
+                                    <!-- Post Comment & Share Area -->
+                                    <div class="post-comment-share-area d-flex">
+                                        <!-- Post Favourite -->
+                                        <div class="post-favourite">
+                                            <a href="" data-posts-id="{{ post.id }}" class="like text-danger"><i class="fa fa-heart-o likes_count"
+                                                aria-hidden="true"></i> {{ recent.likes }}</a>
+                                        </div>
+                                        <!-- Post Comments -->
+                                        <div class="post-comments">
+                                            <a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> {{ recent.comments.count }}</a>
+                                        </div>
+                                        <!-- Post Share -->
+                                        <div class="post-share">
+                                            <a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="{% url 'recette' recent.slug %}">
+                                    <h4 class="post-headline">{{ recent.title }}</h4>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <!-- ******* List Blog Area Start ******* -->
+                    {% for recent in recent_posts_block2 %}
+                    <!-- Single Post -->
+                    <div class="col-12">
+                        <div class="list-blog single-post d-sm-flex">
+                            <!-- Post Thumb -->
+                            <div class="post-thumb">
+                                <a href="{% url 'recette' recent.slug %}">
+                                    <img src="{{ recent.cover_image_thumbnail.url }}" alt="">
+                                </a>
+                            </div>
+                            <!-- Post Content -->
+                            <div class="post-content">
+                                <div class="post-meta d-flex">
+                                    <div class="post-author-date-area d-flex">
+                                        <!-- Post Date -->
+                                        <div class="post-date">
+                                            <a href="{% url 'recette' recent.slug %}">{{ recent.created_at|date:"d F Y" }}</a>
+                                        </div>
+                                    </div>
+                                    <!-- Post Comment & Share Area -->
+                                    <div class="post-comment-share-area d-flex">
+                                        <!-- Post Favourite -->
+                                        <div class="post-favourite">
+                                            <a href="" data-posts-id="{{ post.id }}" class="like text-danger"><i class="fa fa-heart-o likes_count"
+                                                aria-hidden="true"></i> {{ recent.likes }}</a>
+                                        </div>
+                                        <!-- Post Comments -->
+                                        <div class="post-comments">
+                                            <a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> {{ recent.comments.count }}</a>
+                                        </div>
+                                        <!-- Post Share -->
+                                        <div class="post-share">
+                                            <a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="{% url 'recette' recent.slug %}">
+                                    <h4 class="post-headline">{{ recent.title }}</h4>
+                                </a>
+                                <p>{{ recent.citation }}</p>
+                                <a  href="{% url 'recette' recent.slug %}" class="read-more">Lire la recette...</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- ****** Blog Sidebar ****** -->
+            <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+                <div class="blog-sidebar mt-5 mt-lg-0">
+                    <!-- Single Widget Area -->
+                    <div class="single-widget-area about-me-widget text-center">
+                        <div class="widget-title">
+                            <h6>À propos de moi </h6>
+                        </div>
+                        <div class="about-me-widget-thumb">
+                            <img src="{% static 'blog/img/about-img/1.jpg' %}" alt="">
+                        </div>
+                        <h4 class="font-shadow-into-light">Diane</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                        </p>
+                    </div>
+
+                    <!-- Single Widget Area -->
+                    <div class="single-widget-area subscribe_widget text-center">
+                        <div class="widget-title">
+                            <h6>Suivez-moi sur les réseaux sociaux</h6>
+                        </div>
+                        <div class="subscribe-link">
+                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-google" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-vimeo" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Single Widget Area -->
+
+                    <div class="single-widget-area popular-post-widget">
+                        <div class="widget-title text-center">
+                            <h6>Les recettes que vous adorez !</h6>
+                        </div>
+                        <!-- Single Popular Post -->
+                        {% for post in preferred_posts %}
+                        <div class="single-populer-post d-flex">
+
+                            <img src="{{ post.cover_image_thumbnail.url }}" alt="">
+                            <div class="post-content">
+                                <a href="#">
+                                    <h6>{{ post.title }}</h6>
+                                </a>
+                                <p>{{ post.created_at|date:"d F Y" }}</p>
+                            </div>
+
+                        </div>
+                        {% endfor %}
+                    </div>
+
+
+                    <!-- Single Widget Area -->
+                    <div class="single-widget-area newsletter-widget">
+                        <div class="widget-title text-center">
+                            <h6>Newsletter</h6>
+                        </div>
+                        <p id="newsletter"></p>
+                        <div class="newsletter-form">
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                {% bootstrap_form newsletter_form %}
+                                {% buttons %}
+                                <button type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                                {% endbuttons %}
+                            </form>
+                        </div>
+                        <!-- confirmation newsletter -->
+                        {% if newsletter %}
+                        <div class="alert alert-success alert-dismissable fade show">
+                            <button type='button' class='close' data-dismiss='alert'>
+                                <span>&times;</span>
+                            </button>
+                            {{ newsletter }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+<!-- ****** Blog Area End ****** -->
+
+{% endblock content %}
