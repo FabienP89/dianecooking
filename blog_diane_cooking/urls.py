@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import path
 from blog import views
 from django.conf.urls.static import static
@@ -22,8 +23,21 @@ from blog.admin import admin_site
 
 from django.conf.urls import url, include
 
+from django.conf.urls.static import static
+
+from blog.sitemaps import StaticViewSitemap, PostSitemap
+
+
+sitemaps = {
+    'posts': PostSitemap,
+    'static' : StaticViewSitemap
+}
+
+
 urlpatterns = [
     path('admin/', admin_site.urls),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
+    path('about/', views.about, name='about'),
     path('', views.home, name='home'),
     path('/<str:newsletter>/', views.home, name='newsletter-subscrire'),
     path('search/', views.search, name='search'),

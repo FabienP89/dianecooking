@@ -1,9 +1,10 @@
-from django.urls import reverse
 import random
 import os
 from django.db import models
+from django.urls import reverse
 from datetime import date
 from django.template.defaultfilters import slugify
+from django.utils.text import slugify
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill, Transpose, SmartResize
 from imagekit.models import ProcessedImageField
@@ -63,11 +64,27 @@ class Post(models.Model):
     def __str__(self):
         return self.title
     
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Post, self).save()
+        
+        
     class Meta:
         verbose_name = "recette"
-        
-    def get_absolut_url(self):
+
+    def get_absolute_url(self):
         return reverse('recette', kwargs={"slug":self.slug})
+        
+
+    """
+    def get_absolut_url(self):
+        return reverse('post', args=[str(self.slug)])
+  
+
+    def get_absolut_url(self):
+        return f'/{self.slug}/'
+    """
+
     
 def slug_generator(sender, instance, *args, **kwargs):
     if not instance.slug :

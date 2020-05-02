@@ -5,10 +5,16 @@ from blog.models import PostCategory, Post, Comment, Ingredient, Contact, MealTy
 import datetime
 
 
+
 class DianeCookingAdminSite(admin.AdminSite):
     site_header = "Administration Diane Cooking"
+    def __init__(self, *args, **kwargs):
+        super(DianeCookingAdminSite, self).__init__(*args, **kwargs)
+        self._registry.update(admin.site._registry)
+
 
 admin_site = DianeCookingAdminSite(name='admin')
+
 
 
 @admin.register(PostCategory, site=admin_site)

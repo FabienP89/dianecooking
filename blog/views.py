@@ -4,11 +4,16 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from blog.models import Post, Comment, Contact, Newsletter
-from blog import model_helpers
 from blog.forms import CreateCommentForm, ContactForm, NewsletterForm
 from blog.utils import unique_slug_generator
 from django.template.loader import render_to_string
 
+
+
+
+
+def about(request):
+    return HttpResponse('about page...')
 
 
 
