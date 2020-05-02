@@ -28,8 +28,7 @@ def home(request, newsletter=''):
         newsletter_form = NewsletterForm(request.POST)
         if newsletter_form.is_valid():
             newsletter_form.save()
-            args = ['Merci ! Votre inscription à la newsletter est bien prise en compte !']
-            return HttpResponseRedirect(reverse('newsletter-subscrire', args=args) +'#newsletter')
+            newsletter = 'Merci ! Votre inscription à la newsletter est bien prise en compte !'
     else:
         newsletter_form = NewsletterForm()
         
@@ -53,8 +52,8 @@ def contact(request, message =''):
         contact_form = ContactForm(request.POST)
         if contact_form.is_valid():
             contact_form.save()
-            args = ['Merci ! Je vous répondrai dans les meilleurs délais.']
-            return HttpResponseRedirect(reverse('confirmation-contact', args=args) +'#message-contact')
+            message = 'Merci ! Je vous répondrai dans les meilleurs délais.'
+
     else:
         contact_form = ContactForm()
             
@@ -323,8 +322,18 @@ def recipe(request, slug, message=''):
     preferred_posts = Post.objects.filter(published=True).order_by('-likes')[:5]
     posts_same_category = Post.objects.filter(category__in=post.category.all(), published=True).exclude(slug=slug)
     comments = post.comments.filter(parent__isnull=True).exclude(status=Comment.STATUS_HIDDEN).order_by('created_at')
+    newsletter = ''
     
     if request.method == 'POST':
+        newsletter_form = NewsletterForm(request.POST)
+        if newsletter_form.is_valid():
+            newsletter_form.save()
+            newsletter = 'Merci ! Votre inscription à la newsletter est bien prise en compte !'
+
+    else:
+        newsletter_form = NewsletterForm()
+    
+    if request.method == 'POST' and not newsletter_form.is_valid():
         comment_form = CreateCommentForm(data=request.POST)
         if comment_form.is_valid():
             parent_obj = None
@@ -340,21 +349,12 @@ def recipe(request, slug, message=''):
             new_comment = comment_form.save(commit=False)
             new_comment.post = post
             new_comment.save()
-            args = [slug, 'Votre commentaire a bien été enregistré !']
-            return HttpResponseRedirect(reverse('confirmation-message', args=args) +'#comments')
-
+            message = 'Votre commentaire a bien été enregistré !'
+            
     else : 
         comment_form = CreateCommentForm()
 
-    if request.method == 'POST' and not comment_form.is_valid():
-        newsletter_form = NewsletterForm(request.POST)
-        if newsletter_form.is_valid():
-            newsletter_form.save()
-            args = [slug, 'Merci ! Votre inscription à la newsletter est bien prise en compte !']
-            return HttpResponseRedirect(reverse('confirmation-message', args=args) +'#news')
-        
-    else:
-        newsletter_form = NewsletterForm()
+    
             
     context = {
         'post': post,
@@ -364,7 +364,7 @@ def recipe(request, slug, message=''):
         'comment_form': comment_form,
         'newsletter_form': newsletter_form,
         'message': message,
-        #'newsletter': newsletter,
+        'newsletter': newsletter,
     }
     return render(request, 'blog/recipe.html', context)
 

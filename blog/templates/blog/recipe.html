@@ -333,12 +333,12 @@
                             </form>
                         </div>
                         <!-- confirmation newsletter -->
-                        {% if "Votre inscription" in message %}
+                        {% if newsletter %}
                         <div class="alert alert-success alert-dismissable fade show">
                             <button type='button' class='close' data-dismiss='alert'>
                                 <span>&times;</span>
                             </button>
-                            {{ message }}
+                            {{ newsletter }}
                         </div>
                         {% endif %}
                     </div>
