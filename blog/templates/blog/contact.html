@@ -6,7 +6,7 @@
 {% block content %}
 
 <!-- ****** Breadcumb Area Start ****** -->
-<div class="breadcumb-area" style="background-image: url(/static/blog/img/bg-img/breadcumb.jpg);">
+<div class="breadcumb-area" style="background-image: url('/static/blog/img/bg-img/banniere_diane_cooking.jpg');">
     <div class="container h-100">
         <div class="row h-100 align-items-center">
             <div class="col-12">
@@ -23,7 +23,8 @@
             <div class="col-12">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Page d'accueil</a></li>
+                        <li class="breadcrumb-item"><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Page
+                                d'accueil</a></li>
                         <li class="breadcrumb-item active" aria-current="page"> Contact</li>
                     </ol>
                 </nav>
@@ -38,38 +39,44 @@
         <div class="contact-form-area">
             <div class="row">
                 <div class="col-12 col-md-5">
-                    <div class="contact-form-sidebar item" style="background-image: url(/static/blog/img/bg-img/contact.jpg);">
+                    <div class="contact-form-sidebar item"
+                        style="background-image: url(/static/blog/img/bg-img/contact.jpg);">
                     </div>
                 </div>
                 <div class="col-12 col-md-7 item">
                     <div class="contact-form">
                         <!-- confirmation message -->
-                        {% if message %}
-                        <div class="alert alert-success alert-dismissable fade show">
-                            {{ message }}
-                            <button type='button' class='close' data-dismiss='alert'>
-                                <span>&times;</span>
-                            </button>
-                        </div>
-                        {% endif %}
-                        <h2 class="contact-form-title mb-10">Laisser un commentaire</h2>
-                        <p class='text-muted mb-30' id="message-contact">Votre adresse de messagerie ne sera pas publiée. Les champs obligatoires sont indiqués avec *</p>
-                        <!-- Contact Form -->
-                        <form action="" method="post">
-                            <div class="form-group">
-                                {% csrf_token %}
-                                {% bootstrap_form contact_form %}
-                            </div>
-                            {% buttons %}
-                            <button type="submit" class="btn contact-btn">Envoyer</button>
-                            {% endbuttons %}
-                        </form>
+                        {% if message_name %}
+                        <center>
+                            <h2>Merci {{ message_name }} !</h2>
+                            <p>Je vous répondrai dans les meilleurs délais.</p>
+                        </center>
+                        <div style="height:400px;display:block;"> </div>
                     </div>
+                    {% else %}
+                    <h2 class="contact-form-title mb-10">Laisser un commentaire</h2>
+                    <p class='text-muted mb-30' id="message-contact">Votre adresse de messagerie ne sera pas publiée.
+                        Les champs obligatoires sont indiqués avec *</p>
+                    <!-- Contact Form -->
+                    <form action="" method="post">
+                        <div class="form-group">
+                            {% csrf_token %}
+                            {% bootstrap_form contact_form %}
+                        </div>
+                        {% buttons %}
+                        <button type="submit" class="btn contact-btn">Envoyer</button>
+                        {% endbuttons %}
+                    </form>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
+</div>
+
+
+
 <!-- ****** Contact Area End ****** -->
 
 {% endblock content %}

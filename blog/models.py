@@ -76,15 +76,6 @@ class Post(models.Model):
         return reverse('recette', kwargs={"slug":self.slug})
         
 
-    """
-    def get_absolut_url(self):
-        return reverse('post', args=[str(self.slug)])
-  
-
-    def get_absolut_url(self):
-        return f'/{self.slug}/'
-    """
-
     
 def slug_generator(sender, instance, *args, **kwargs):
     if not instance.slug :

@@ -1,0 +1,143 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- ****** Breadcumb Area Start ****** -->
+<div class="breadcumb-area" style="background-image: url('/static/blog/img/bg-img/banniere_diane_cooking.jpg');">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="bradcumb-title text-center">
+                    <h2>{{ name }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="breadcumb-nav">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}"><i class="fa fa-home" aria-hidden="true"></i>
+                                Accueil</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ name }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ****** Breadcumb Area End ****** -->
+
+
+<!-- ****** Archive Area Start ****** -->
+<section class="archive-area section_padding_80">
+    <div class="container">
+        <div class="row">
+
+            <!-- Single Post -->
+            {% if posts.count == 0 %}
+            <div class="col-12 text-center">
+            <h3> Pas de résultats </h3>
+            </div>
+            {% endif %}
+
+            {% for post in posts %}
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="single-post wow fadeInUp">
+                    <!-- Post Thumb -->
+                    <div class="post-thumb">
+                        <a href="{% url 'recette' post.slug %}">
+                            <img src="{{ post.cover_image_thumbnail.url }}" alt="">
+                        </a>
+                    </div>
+                    <!-- Post Content -->
+                    <div class="post-content">
+                        <div class="post-meta d-flex">
+                            <div class="post-author-date-area d-flex">
+                                <!-- Post Date -->
+                                <div class="post-date">
+                                    <a href="{% url 'recette' post.slug %}">{{ post.created_at|date:"d F Y" }}</a>
+                                </div>
+                            </div>
+                            <!-- Post Comment & Share Area -->
+                            <div class="post-comment-share-area d-flex">
+                                <!-- Post Favourite -->
+                                <div class="post-favourite">
+                                    
+                                    <a href="#" data-post-id="{{ post.id }}" class="likes text-danger">J'aime <i class="like_count fa fa-heart-o"
+                                        aria-hidden="true"> {{ post.likes }}</i></a>
+                                </div>
+                                <!-- Post Comments -->
+                                <div class="post-comments">
+                                    <a href="#"><i class="fa fa-comment-o"
+                                            aria-hidden="true"></i> {{ post.comments.count }}</a>
+                                </div>
+                                <!-- Post Share -->
+                                <div class="post-share">
+                                    <a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{% url 'recette' post.slug %}">
+                            <h4 class="post-headline">{{ post.title }}</h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="col-12">
+                <div class="pagination-area d-sm-flex mt-15">
+                    <nav aria-label="#">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                {% if page_posts.has_previous %}
+                                <a class="page-link" href="?page=1">
+                                    <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_posts.previous_page_number }}">
+                                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                </a>
+                                {% endif %}
+                            </li>
+                            {% for num in page_posts.paginator.page_range %}
+                            <li class="page-item active">
+                                {% if page_posts.number == num %}
+                                <a class="page-link" href="#">{{ num }}<span class="sr-only">(current)</span></a>
+                            </li>
+                            {% elif num > page_posts.number|add:'-3' and num < page_posts.number|add:'3' %}
+                            <li class="page-item">
+                                </posts.number><a class="page-link">{{num}}</a>
+                                {% endif %}
+                            </li>
+                            {% endfor %}
+                            {% if page_posts.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_posts.next_page_number }}">
+                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_posts.paginator.num_pages }}">
+                                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    <div class="page-status text-center">
+                        <p>Page {{ page_posts.number }} / {{ page_posts.paginator.num_pages }}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- ****** Archive Area End ****** -->
+{% endblock content %}

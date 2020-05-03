@@ -7,6 +7,7 @@ from blog.models import Post, Comment, Contact, Newsletter
 from blog.forms import CreateCommentForm, ContactForm, NewsletterForm
 from blog.utils import unique_slug_generator
 from django.template.loader import render_to_string
+from django.core.mail import send_mail
 
 
 
@@ -29,6 +30,13 @@ def home(request, newsletter=''):
         if newsletter_form.is_valid():
             newsletter_form.save()
             newsletter = 'Merci ! Votre inscription à la newsletter est bien prise en compte !'
+            new_subscription = request.POST.get('email')
+        send_mail(
+            'Nouvelle inscription à la newsletter sur le site dianecooking.com',
+            f"L'adresse mail : {new_subscription} vient de s'inscrire à la newsletter.",
+            new_subscription,
+            ['dianefrenchcooking@gmail.com'],
+        )
     else:
         newsletter_form = NewsletterForm()
         
@@ -48,18 +56,27 @@ def home(request, newsletter=''):
 
 
 def contact(request, message =''):
+    message_name = ''
     if request.method == 'POST':
         contact_form = ContactForm(request.POST)
         if contact_form.is_valid():
             contact_form.save()
-            message = 'Merci ! Je vous répondrai dans les meilleurs délais.'
+            message_name = request.POST.get('name')
+            message_email = request.POST.get('email')
+            message_content = request.POST.get('message')
+        send_mail(
+            'Nouveau message depuis le site dianecooking.com',
+            f"{message_name}, adresse mail : {message_email} vous a envoyé le message suivante : {message_content}",
+            message_email,
+            ['dianefrenchcooking@gmail.com'],
+        )
 
     else:
         contact_form = ContactForm()
             
     context = {
     'contact_form' : contact_form,
-    'message' : message,
+    'message_name' : message_name,
     }
     return render(request, 'blog/contact.html', context)
 
@@ -329,7 +346,13 @@ def recipe(request, slug, message=''):
         if newsletter_form.is_valid():
             newsletter_form.save()
             newsletter = 'Merci ! Votre inscription à la newsletter est bien prise en compte !'
-
+            new_subscription = request.POST.get('email')
+            send_mail(
+                'Nouvelle inscription à la newsletter sur le site dianecooking.com',
+                f"L'adresse mail : {new_subscription} vient de s'inscrire à la newsletter.",
+                new_subscription,
+                ['dianefrenchcooking@gmail.com'],
+                )
     else:
         newsletter_form = NewsletterForm()
     
@@ -350,6 +373,15 @@ def recipe(request, slug, message=''):
             new_comment.post = post
             new_comment.save()
             message = 'Votre commentaire a bien été enregistré !'
+            author_name = request.POST.get('author_name')
+            text = request.POST.get('text')
+            default_email = 'dianefrenchcooking@gmail.com'
+            send_mail(
+            'Nouveau commentaire depuis le site dianecooking.com',
+            f"{author_name} a déposé le commentaire suivant: '{text}', sur la publication : '{post.title}'.",
+            default_email,
+            ['dianefrenchcooking@gmail.com'],
+        )
             
     else : 
         comment_form = CreateCommentForm()
