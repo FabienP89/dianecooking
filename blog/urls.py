@@ -6,7 +6,6 @@ from blog import views
 from django.conf.urls import url, include
 
 
-
 urlpatterns = [
     path('', views.home, name='home'),
     path('/<str:newsletter>/', views.home, name='newsletter-subscrire'),
@@ -22,12 +21,13 @@ urlpatterns = [
     path('aperitifs/', views.aperitifs, name='aperitifs'),
     path('entrees/', views.entrees, name='entrees'),
     path('viandes/', views.viandes, name='viandes'),
-    path('tartes-quiches/', views.tartes_quiches, name='tartes_quiches'),
+    path('tartes-quiches-cakes/', views.tartes_quiches_cakes, name='tartes_quiches_cakes'),
+    path('pates/', views.pates, name='pates'),
     path('poissons/', views.poissons, name='poissons'),
     path('accompagnements/', views.accompagnements, name='accompagnements'),
     path('boulange/', views.boulange, name='boulange'),
     path('gateaux/', views.gateaux, name='gateaux'),
-    path('goutes/', views.goutes, name='goutes'),
+    path('goutes/', views.gouters, name='gouters'),
     path('viennoiseries/', views.viennoiseries, name='viennoiseries'),
     path('desserts-individuels/', views.desserts_individuels, name='desserts_individuels'),
     path('tartes/', views.tartes, name='tartes'),

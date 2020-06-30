@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from blog.models import Post, Comment, Contact, Newsletter
 from blog.forms import CreateCommentForm, ContactForm, NewsletterForm
 from blog.utils import unique_slug_generator
-from django.template.loader import render_to_string
+from django.template.loader import render_to_string, get_template
 from django.core.mail import send_mail
 
 
@@ -118,7 +118,7 @@ def search(request):
 
 
 def savory_recipes(request):
-    posts = Post.objects.filter(category__name__iexact="recettes salées").order_by('-created_at')
+    posts = Post.objects.filter(published=True).filter(category__name__iexact="recettes salées").order_by('-created_at')
     paginator = Paginator(posts, 12)
     page = request.GET.get('page')
     page_posts = paginator.get_page(page)
@@ -131,7 +131,7 @@ def savory_recipes(request):
     return render(request, 'blog/all_recipes.html', context)
 
 def aperitifs(request):
-    posts = Post.objects.filter(mealtype__name__iexact="apéritifs").order_by('-created_at')
+    posts = Post.objects.filter(published=True).filter(mealtype__name__iexact="apéritifs").order_by('-created_at')
     paginator = Paginator(posts, 12)
     page = request.GET.get('page')
     page_posts = paginator.get_page(page)
@@ -144,7 +144,7 @@ def aperitifs(request):
     return render(request, 'blog/all_recipes.html', context)
 
 def entrees(request):
-    posts = Post.objects.filter(mealtype__name__iexact="entrées").order_by('-created_at')
+    posts = Post.objects.filter(published=True).filter(mealtype__name__iexact="entrées").order_by('-created_at')
     paginator = Paginator(posts, 12)
     page = request.GET.get('page')
     page_posts = paginator.get_page(page)
@@ -158,7 +158,7 @@ def entrees(request):
 
 
 def viandes(request):
-    posts = Post.objects.filter(mealtype__name__iexact="viandes").order_by('-created_at')
+    posts = Post.objects.filter(published=True).filter(mealtype__name__iexact="viandes").order_by('-created_at')
     paginator = Paginator(posts, 12)
     page = request.GET.get('page')
     page_posts = paginator.get_page(page)
@@ -171,12 +171,12 @@ def viandes(request):
     return render(request, 'blog/all_recipes.html', context)
 
 
-def tartes_quiches(request):
-    posts = Post.objects.filter(mealtype__name__iexact="tartes/quiches").order_by('-created_at')
+def tartes_quiches_cakes(request):
+    posts = Post.objects.filter(published=True).filter(mealtype__name__iexact="tartes/quiches/cakes").order_by('-created_at')
     paginator = Paginator(posts, 12)
     page = request.GET.get('page')
     page_posts = paginator.get_page(page)
-    name = "Tartes/Quiches"
+    name = "Tartes/Quiches/Cakes"
     context = {
             'posts' : posts,
             'page_posts' : page_posts,
@@ -184,8 +184,23 @@ def tartes_quiches(request):
     }
     return render(request, 'blog/all_recipes.html', context)
 
+def pates(request):
+    posts = Post.objects.filter(published=True).filter(mealtype__name__iexact="pâtes").order_by('-created_at')
+    paginator = Paginator(posts, 12)
+    page = request.GET.get('page')
+    page_posts = paginator.get_page(page)
+    name = "Pâtes"
+    context = {
+            'posts' : posts,
+            'page_posts' : page_posts,
+            'name' : name,
+    }
+    return render(request, 'blog/all_recipes.html', context)
+
+
+
 def poissons(request):
-    posts = Post.objects.filter(mealtype__name__iexact="poissons").order_by('-created_at')
+    posts = Post.objects.filter(published=True).filter(mealtype__name__iexact="poissons").order_by('-created_at')
     paginator = Paginator(posts, 12)
     page = request.GET.get('page')
     page_posts = paginator.get_page(page)
@@ -199,7 +214,7 @@ def poissons(request):
 
 
 def accompagnements(request):
-    posts = Post.objects.filter(mealtype__name__iexact="accompagnements").order_by('-created_at')
+    posts = Post.objects.filter(published=True).filter(mealtype__name__iexact="accompagnements").order_by('-created_at')
     paginator = Paginator(posts, 12)
     page = request.GET.get('page')
     page_posts = paginator.get_page(page)
@@ -212,7 +227,7 @@ def accompagnements(request):
     return render(request, 'blog/all_recipes.html', context)
 
 def boulange(request):
-    posts = Post.objects.filter(mealtype__name__iexact="boulange").order_by('-created_at')
+    posts = Post.objects.filter(published=True).filter(mealtype__name__iexact="boulange").order_by('-created_at')
     paginator = Paginator(posts, 12)
     page = request.GET.get('page')
     page_posts = paginator.get_page(page)
@@ -225,7 +240,7 @@ def boulange(request):
     return render(request, 'blog/all_recipes.html', context)
 
 def sweet_recipes(request):
-    posts = Post.objects.filter(category__name__iexact="recettes sucrées").order_by('-created_at')
+    posts = Post.objects.filter(published=True).filter(category__name__iexact="recettes sucrées").order_by('-created_at')
     paginator = Paginator(posts, 12)
     page = request.GET.get('page')
     page_posts = paginator.get_page(page)
@@ -239,7 +254,7 @@ def sweet_recipes(request):
 
 
 def gateaux(request):
-    posts = Post.objects.filter(mealtype__name__iexact="gâteaux").order_by('-created_at')
+    posts = Post.objects.filter(published=True).filter(mealtype__name__iexact="gâteaux").order_by('-created_at')
     paginator = Paginator(posts, 12)
     page = request.GET.get('page')
     page_posts = paginator.get_page(page)
@@ -251,12 +266,12 @@ def gateaux(request):
     }
     return render(request, 'blog/all_recipes.html', context)
 
-def goutes(request):
-    posts = Post.objects.filter(mealtype__name__iexact="goûtés").order_by('-created_at')
+def gouters(request):
+    posts = Post.objects.filter(published=True).filter(mealtype__name__iexact="goûters").order_by('-created_at')
     paginator = Paginator(posts, 12)
     page = request.GET.get('page')
     page_posts = paginator.get_page(page)
-    name = "Goûtés"
+    name = "Goûters"
     context = {
             'posts' : posts,
             'page_posts' : page_posts,
@@ -265,7 +280,7 @@ def goutes(request):
     return render(request, 'blog/all_recipes.html', context)
 
 def viennoiseries(request):
-    posts = Post.objects.filter(mealtype__name__iexact="viennoiseries").order_by('-created_at')
+    posts = Post.objects.filter(published=True).filter(mealtype__name__iexact="viennoiseries").order_by('-created_at')
     paginator = Paginator(posts, 12)
     page = request.GET.get('page')
     page_posts = paginator.get_page(page)
@@ -278,7 +293,7 @@ def viennoiseries(request):
     return render(request, 'blog/all_recipes.html', context)
 
 def tartes(request):
-    posts = Post.objects.filter(mealtype__name__iexact="tartes").order_by('-created_at')
+    posts = Post.objects.filter(published=True).filter(mealtype__name__iexact="tartes").order_by('-created_at')
     paginator = Paginator(posts, 12)
     page = request.GET.get('page')
     page_posts = paginator.get_page(page)
@@ -291,7 +306,7 @@ def tartes(request):
     return render(request, 'blog/all_recipes.html', context)
 
 def desserts_individuels(request):
-    posts = Post.objects.filter(mealtype__name__iexact="desserts individuels").order_by('-created_at')
+    posts = Post.objects.filter(published=True).filter(mealtype__name__iexact="desserts individuels").order_by('-created_at')
     paginator = Paginator(posts, 12)
     page = request.GET.get('page')
     page_posts = paginator.get_page(page)
@@ -307,7 +322,7 @@ def desserts_individuels(request):
 # recettes par thèmes
 
 def theme_recipes(request):
-    posts = Post.objects.filter(category__name__iexact="recettes par thème").order_by('-created_at')
+    posts = Post.objects.filter(published=True).filter(category__name__iexact="recettes par thème").order_by('-created_at')
     paginator = Paginator(posts, 12)
     page = request.GET.get('page')
     page_posts = paginator.get_page(page)
@@ -320,7 +335,7 @@ def theme_recipes(request):
     return render(request, 'blog/all_recipes.html', context)
 
 def paques(request):
-    posts = Post.objects.filter(mealtype__name__iexact="pâques").order_by('-created_at')
+    posts = Post.objects.filter(published=True).filter(mealtype__name__iexact="pâques").order_by('-created_at')
     paginator = Paginator(posts, 12)
     page = request.GET.get('page')
     page_posts = paginator.get_page(page)
@@ -340,7 +355,7 @@ def recipe(request, slug, message=''):
     posts_same_category = Post.objects.filter(category__in=post.category.all(), published=True).exclude(slug=slug)
     comments = post.comments.filter(parent__isnull=True).exclude(status=Comment.STATUS_HIDDEN).order_by('created_at')
     newsletter = ''
-    
+
     if request.method == 'POST':
         newsletter_form = NewsletterForm(request.POST)
         if newsletter_form.is_valid():
@@ -381,7 +396,8 @@ def recipe(request, slug, message=''):
             f"{author_name} a déposé le commentaire suivant: '{text}', sur la publication : '{post.title}'.",
             default_email,
             ['dianefrenchcooking@gmail.com'],
-        )
+            )
+            comment_form = CreateCommentForm()
             
     else : 
         comment_form = CreateCommentForm()

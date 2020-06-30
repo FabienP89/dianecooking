@@ -48,10 +48,10 @@
                     <!-- Single Post Share Info -->
                     <div class="col-2 col-sm-1">
                         <div class="single-post-share-info mt-100">
-                            <a href="#" class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            <a href="#" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="#" class="instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                            <a href="#" class="pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                            <!-- <a href="#" class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a> -->
+                            <!-- <a href="#" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a> -->
+                            <a href="https://www.instagram.com/dianecooking/" class="instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                            <!-- <a href="#" class="pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i></a> -->
                         </div>
                     </div>
 
@@ -87,18 +87,18 @@
                                                 {{ post.comments.count }}</a>
                                         </div>
                                         <!-- Post Share -->
-                                        <div class="post-share">
+                                        <!--<div class="post-share">
                                             <a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <a href="#">
                                     <h2 class="post-headline">{{ post.title }}</h2>
                                 </a>
-                                <p>{{ post.introduction }}</p>
+                                <p>{{ post.introduction|linebreaks }}</p>
                                 {% if post.citation|length > 0 %}
                                 <blockquote class="yummy-blockquote mt-30 mb-30">
-                                    <h5 class="mb-30">“{{ post.citation }}”</h5>
+                                    <h5 class="mb-30">“{{ post.citation|linebreaks }}”</h5>
                                     <h6 class="text-muted">Diane</h6>
                                 </blockquote>
                                 {% endif %}
@@ -121,27 +121,31 @@
                                 </div>
                                 {% endif %}
                                 <h4>{{ post.title_chapter1|default:"" }}</h4>
-                                <p>{{ post.ch1_block1 }}</p>
+                                <p>{{ post.ch1_block1|linebreaks }}</p>
 
                                 <img class="br-30 mb-30" src="{{ post.image_thumbnail2.url }}" alt="">
-                                <p>{{ post.ch1_block2 }}</p>
+                                <p>{{ post.ch1_block2|linebreaks }}</p>
 
                                 <img class="br-30 mb-30" src="{{ post.image_thumbnail3.url }}" alt="">
-                                <p>{{ post.ch1_block3 }}</p>
+                                <p>{{ post.ch1_block3|linebreaks }}</p>
 
                                 <img class="br-30 mb-30" src="{{ post.image_thumbnail4.url }}" alt="">
                                 <h4>{{ post.title_chapter2|default:"" }}</h4>
-                                <p>{{ post.ch2_block1 }}</p>
+                                <p>{{ post.ch2_block1|linebreaks }}</p>
 
 
                                 <img class="br-30 mb-15" src="{{ post.image_thumbnail5.url }}" alt="">
+                                <img class="br-30 mb-15" src="{{ post.image_thumbnail6.url }}" alt="">
                             </div>
                         </div>
                         <!-- Tags Area -->
                         <div class="tags-area">
-                            <a href="#">Multipurpose</a>
-                            <a href="#">Design</a>
-                            <a href="#">Ideas</a>
+                            {% for category in post.category.all %}
+                            <a>{{ category }}</a>
+                            {% endfor %}
+                            {% for mealtype in post.mealtype.all %}
+                            <a>{{ mealtype }}</a>
+                            {% endfor %}
                         </div>
 
                         <!-- Related Post Area -->
@@ -287,12 +291,10 @@
                             <h6>Suivez-moi sur les réseaux sociaux !</h6>
                         </div>
                         <div class="subscribe-link">
-                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-google" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-vimeo" aria-hidden="true"></i></a>
+                                <a target="_blank" href="https://www.youtube.com/channel/UC8SUKgn0CUoTCgitzMQlUIw"><i
+                                        class="fa fa-youtube-play" aria-hidden="true"></i><span> YouTube</span></a>
+                                <a target="_blank" href="https://www.instagram.com/dianecooking/"><i class="fa fa-instagram" aria-hidden="true"></i><span> Instagram</span></a>
+                            </div>
                         </div>
                     </div>
 
@@ -307,7 +309,7 @@
 
                             <img src="{{ post.cover_image_thumbnail.url }}" alt="">
                             <div class="post-content">
-                                <a href="#">
+                                <a href="{% url 'recette' post.slug %}">
                                     <h6>{{ post.title }}</h6>
                                 </a>
                                 <p>{{ post.created_at|date:"d F Y" }}</p>

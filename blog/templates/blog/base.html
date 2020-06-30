@@ -1,6 +1,7 @@
 {% load instagram_client %}
 {% load static %}
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -8,8 +9,20 @@
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TWWBPNZ');</script>
+    <!-- End Google Tag Manager -->
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
+    gtag('config', 'UA-170103410-1');
+    </script>
     <!-- Title -->
     <title>Diane Cooking</title>
     <!-- Favicon -->
@@ -24,6 +37,10 @@
 </head>
 
 <body>
+    <!-- Google Tag Manager (noscript) --> 
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWWBPNZ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <!-- Preloader Start -->
     <div id="preloader">
         <div class="yummy-load"></div>
@@ -42,7 +59,7 @@
                     <div class="top_social_bar">
                         <a target="_blank" href="https://www.youtube.com/channel/UC8SUKgn0CUoTCgitzMQlUIw"><i
                                 class="fa fa-youtube-play" aria-hidden="true"></i><span> YouTube</span></a>
-                                <a target="_blank" href="https://www.instagram.com/dianecooking/?hl=fr"><i class="fa fa-instagram" aria-hidden="true"></i><span> Instagram</span></a>
+                                <a target="_blank" href="https://www.instagram.com/dianecooking/"><i class="fa fa-instagram" aria-hidden="true"></i><span> Instagram</span></a>
                     </div>
 
                 </div>
@@ -102,7 +119,9 @@
                                             <a class="dropdown-item" href="{% url 'entrees' %}">Entrées</a>
                                             <a class="dropdown-item" href="{% url 'viandes' %}">Viandes</a>
                                             <a class="dropdown-item"
-                                                href="{% url 'tartes_quiches' %}">Tartes/Quiches</a>
+                                            href="{% url 'pates' %}">Pâtes</a>
+                                            <a class="dropdown-item"
+                                                href="{% url 'tartes_quiches_cakes' %}">Tartes/Quiches/Cakes</a>
                                             <a class="dropdown-item" href="{% url 'poissons' %}">Poissons</a>
                                             <a class="dropdown-item"
                                                 href="{% url 'accompagnements' %}">Accompagnements</a>
@@ -121,7 +140,7 @@
                                                 recettes
                                                 sucrées</a>
                                             <a class="dropdown-item" href="{% url 'gateaux' %}">Gâteaux</a>
-                                            <a class="dropdown-item" href="{% url 'goutes' %}">Goûtés</a>
+                                            <a class="dropdown-item" href="{% url 'gouters' %}">Goûters</a>
                                             <a class="dropdown-item" href="{% url 'viennoiseries' %}">Viennoiseries</a>
                                             <a class="dropdown-item" href="{% url 'tartes' %}">Tartes</a>
                                             <a class="dropdown-item" href="{% url 'desserts_individuels' %}">Desserts
@@ -163,31 +182,30 @@
 
 
 
-
-        <!-- ****** Instagram Area Start ****** -->
-        <div class="instargram_area owl-carousel section_padding_100_0 clearfix" id="portfolio">
-            <!-- Instagram Item -->
-            {% instagram_user_recent_media dianecooking %}
-            {% for media in recent_media %}
-            <div class="instagram_gallery_item">
-                <!-- Instagram Thumb -->
-                <a href="//instagram.com/p/{{ media.shortcode }}" target="_blank"></a>
-                <img src="{{ media.thumbnail_src }}" alt="">
-                
-                <!-- Hover -->
-                <div class="hover_overlay">
-                    <div class="yummy-table">
-                        <div class="yummy-table-cell">
-                            <div class="follow-me text-center">
-                                <a href="https://www.instagram.com/dianecooking/?hl=fr"><i class="fa fa-instagram" aria-hidden="true"></i> Follow me</a>
-                            </div>
+               <!-- ****** Instagram Area Start ****** -->
+       <div class="instargram_area owl-carousel section_padding_100_0 clearfix" id="portfolio">
+        <!-- Instagram Item -->
+        {% instagram_user_recent_media "dianecooking" %}
+        {% for media in recent_media %}
+        <div class="instagram_gallery_item">
+            <!-- Instagram Thumb -->
+            <a href="//instagram.com/p/{{ media.shortcode }}" target="_blank"></a>
+            <img src="{{ media.thumbnail_src }}" alt="">
+            <!-- Hover -->
+            <div class="hover_overlay">
+                <div class="yummy-table">
+                    <div class="yummy-table-cell">
+                        <div class="follow-me text-center">
+                            <a href="https://www.instagram.com/dianecooking/?hl=fr"><i class="fa fa-instagram" aria-hidden="true"></i> Follow me</a>
                         </div>
                     </div>
                 </div>
-                
             </div>
-            {% endfor %}
+            
         </div>
+        {% endfor %}
+    </div>
+ 
         <!-- ****** Our Creative Portfolio Area End ****** -->
 
         <!-- ****** Footer Social Icon Area Start ****** -->
@@ -195,12 +213,9 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-6">
-                        <div class="footer-social-area d-flex">
+                        <div class="footer-social-area d-flex justify-content-around">
                             <div class="single-icon">
-                                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i><span>facebook</span></a>
-                            </div>
-                            <div class="single-icon">
-                                <a target="_blank" href="https://www.instagram.com/dianecooking/?hl=fr"><i class="fa fa-instagram" aria-hidden="true"></i><span>Instagram</span></a>
+                                <a target="_blank" href="https://www.instagram.com/dianecooking/"><i class="fa fa-instagram" aria-hidden="true"></i><span>Instagram</span></a>
                             </div>
                             <div class="single-icon">
                                 <a target="_blank" href="https://www.youtube.com/channel/UC8SUKgn0CUoTCgitzMQlUIw"><i

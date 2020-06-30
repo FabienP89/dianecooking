@@ -47,19 +47,21 @@ class Post(models.Model):
     
     created_at = models.DateTimeField(auto_now_add=True)
     cover_image = models.ImageField(default='default.jpg')
-    cover_image_thumbnail =ImageSpecField(source='cover_image', processors = [Transpose()], format = 'JPEG', options = {'quality': 90})
+    cover_image_thumbnail =ImageSpecField(source='cover_image', processors = [Transpose()], format = 'JPEG', options = {'quality': 60})
     image1 = models.ImageField(default='default.jpg')
-    image_thumbnail1 =ImageSpecField(source='image1', processors = [Transpose()], format = 'JPEG', options = {'quality': 90})
+    image_thumbnail1 =ImageSpecField(source='image1', processors = [Transpose()], format = 'JPEG', options = {'quality': 60})
     image2 = models.ImageField(default='default.jpg')
-    image_thumbnail2 = ImageSpecField(source='image2', processors = [Transpose()], format = 'JPEG', options = {'quality': 90})
+    image_thumbnail2 = ImageSpecField(source='image2', processors = [Transpose()], format = 'JPEG', options = {'quality': 60})
     image3 = models.ImageField(default='default.jpg')
-    image_thumbnail3 = ImageSpecField(source='image3', processors = [Transpose(),], format = 'JPEG', options = {'quality': 90})
+    image_thumbnail3 = ImageSpecField(source='image3', processors = [Transpose(),], format = 'JPEG', options = {'quality': 60})
     image4 = models.ImageField(default='default.jpg')
-    image_thumbnail4 = ImageSpecField(source='image4', processors = [Transpose(),], format = 'JPEG', options = {'quality': 90})
+    image_thumbnail4 = ImageSpecField(source='image4', processors = [Transpose(),], format = 'JPEG', options = {'quality': 60})
     image5 = models.ImageField(default='default.jpg')
-    image_thumbnail5 = ImageSpecField(source='image5', processors = [Transpose(),], format = 'JPEG', options = {'quality': 90})
+    image_thumbnail5 = ImageSpecField(source='image5', processors = [Transpose(),], format = 'JPEG', options = {'quality': 60})
+    image6 = models.ImageField(default='default.jpg')
+    image_thumbnail6 = ImageSpecField(source='image6', processors = [Transpose(),], format = 'JPEG', options = {'quality': 60})
     image_slider = models.ImageField(default='default.jpg')
-    image_thumbnail_slider = ImageSpecField(source='image_slider', processors = [Transpose(), ResizeToFill(601,902)], format = 'JPEG', options = {'quality': 90})
+    image_thumbnail_slider = ImageSpecField(source='image_slider', processors = [Transpose(), ResizeToFill(601,902)], format = 'JPEG', options = {'quality': 60})
     
     def __str__(self):
         return self.title

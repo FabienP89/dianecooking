@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'imagekit',
     'blog.apps.BlogConfig',
+    'wkhtmltopdf',
     'sorl.thumbnail',
     'django_instagram',
 ]
@@ -140,11 +141,14 @@ STATICFILES_DIR = [
 # Email settings
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
+SERVER_EMAIL = 'dianefrenchcooking@gmail.com'
 EMAIL_HOST_USER = 'dianefrenchcooking@gmail.com'
-EMAIL_HOST_PASSWORD = '**************'
+EMAIL_HOST_PASSWORD = '*************'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = True
 EMAIL_PORT = 587
     
 

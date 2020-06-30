@@ -222,7 +222,17 @@
                             <img src="{% static 'blog/img/about-img/1.jpg' %}" alt="">
                         </div>
                         <h4 class="font-shadow-into-light">Diane</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                        <p>Bonjour à tous,<br/>
+                            <br/>
+                            Je m'appelle Diane, jeune maman de deux enfants adorant la cuisine (surtout la manger mais aussi la faire !) 
+                            J'ai créée ce site afin de partager avec vous cette passion.<br/>
+                            Ce sont pour la plupart des recettes simples, rapides et familiales.<br/>
+                            Pas toujours très équilibrées mais toujours très gourmandes. <br/>
+                            J'ai aussi une <a href="https://www.youtube.com/channel/UC8SUKgn0CUoTCgitzMQlUIw" target = "_blank">chaine youtube</a> pour mieux expliquer mes recettes à travers des vidéos et un compte <a href="https://www.instagram.com/dianecooking/" target = "_blank">instagram</a> !<br/>
+                            Dites moi ce que vous en pensez !<br/>
+                            J'attend vos commentaires avec impatience.<br/>
+                            <br/>
+                            À bientôt !
                         </p>
                     </div>
 
@@ -232,12 +242,9 @@
                             <h6>Suivez-moi sur les réseaux sociaux</h6>
                         </div>
                         <div class="subscribe-link">
-                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-google" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-vimeo" aria-hidden="true"></i></a>
+                            <a target="_blank" href="https://www.youtube.com/channel/UC8SUKgn0CUoTCgitzMQlUIw"><i
+                                class="fa fa-youtube-play" aria-hidden="true"></i><span> YouTube</span></a>
+                        <a target="_blank" href="https://www.instagram.com/dianecooking/"><i class="fa fa-instagram" aria-hidden="true"></i><span> Instagram</span></a>
                         </div>
                     </div>
 
@@ -253,7 +260,7 @@
 
                             <img src="{{ post.cover_image_thumbnail.url }}" alt="">
                             <div class="post-content">
-                                <a href="#">
+                                <a href="{% url 'recette' post.slug %}">
                                     <h6>{{ post.title }}</h6>
                                 </a>
                                 <p>{{ post.created_at|date:"d F Y" }}</p>
